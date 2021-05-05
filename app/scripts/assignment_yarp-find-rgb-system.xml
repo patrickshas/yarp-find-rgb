@@ -1,0 +1,26 @@
+<application>
+
+  <name>Assignment on Find RGB System</name>
+
+  <module>
+      <name>yarplogger</name>
+      <parameters>--start --no_stop</parameters>
+      <node>localhost</node>
+  </module>
+
+  <module>
+      <name>gzserver</name>
+      <parameters>assignment_yarp-find-rgb.sdf</parameters>
+      <dependencies>  
+         <port timeout="20">/yarplogger</port>
+      </dependencies>
+      <environment>YARP_FORWARD_LOG_ENABLE=1</environment>
+      <node>localhost</node>
+  </module>
+
+  <module>
+      <name>gzclient</name>
+      <node>localhost</node>
+  </module>
+
+</application>

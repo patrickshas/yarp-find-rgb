@@ -1,0 +1,52 @@
+<application>
+    <name>Fixture for Assignment on Yarp Vision-based Task</name>
+    <description>A fixture to prepare components required for the assignment</description>
+    <version>1.0</version>
+    <authors>
+        <author email="giulia.vezzani@iit.it">Giulia Vezzani</author>
+    </authors>
+
+    <module>
+    <name>gzserver</name>
+        <parameters>assignment_yarp-find-rgb.sdf</parameters>
+        <node>testnode</node>
+    </module>
+    
+    <module>
+        <name>gzclient</name>
+    </module>
+
+    <module>
+        <name>assignment_yarp-find-rgb-head</name>
+        <dependencies>
+            <port timeout="30">/icubSim/cam/left/rgbImage:o</port>
+            <port timeout="30">/icubSim/head/rpc:i </port>
+            <port timeout="30">/icubSim/head/state:o</port>
+            <port timeout="30">/icubSim/head/command:i</port>
+            <port timeout="30">/icubSim/head/stateExt:o</port>
+        </dependencies>
+        <node>testnode</node>
+    </module>  
+    
+    <module>
+        <name>yarpview</name>
+        <parameters>--name /viewer --x 10 --y 10</parameters>
+         <dependencies>
+            <port timeout="30">/icubSim/cam/left/rgbImage:o</port>
+        </dependencies>
+        <node>testnode</node>
+    </module>
+    
+    <connection>
+        <from>/icubSim/cam/left/rgbImage:o</from>
+        <to>/viewer</to>
+        <protocol>udp</protocol>
+    </connection>
+    
+    <connection>
+        <from>/icubSim/cam/left/rgbImage:o</from>
+        <to>/head/img:i</to>
+        <protocol>udp</protocol>
+    </connection>
+
+</application>
